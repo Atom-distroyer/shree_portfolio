@@ -1,144 +1,195 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { GraduationCap, Calendar, MapPin, Award } from 'lucide-react';
+import { GraduationCap, Award } from 'lucide-react';
 
-const education = [
-    {
-        degree: 'Bachelor of Engineering in Computer Science',
-        institution: 'Savitribai Phule Pune University',
-        period: '2021 – 2025',
-        location: 'Pune, India',
-        score: 'CGPA: 7.92',
-        type: 'Bachelor',
-    },
-    {
-        degree: '12th Maharashtra State Board',
-        institution: 'Sant Bhagwanbaba Uchha-Madhyamik Vidyalay',
-        period: '2019 – 2021',
-        location: 'Maharashtra, India',
-        score: 'Percentage: 85%',
-        type: 'Higher Secondary',
-    },
-];
-
-const achievements = [
-    'Published research paper on "Crop Disease Detection and Recovery Prediction using CNN" in a reputed journal',
-    'Published "Web Scraping for E-Commerce Website" in International Conference on Recent Trends in Innovation and Technology, vol.13, Issue 04, 2024',
-    'Completed Software Engineer Training at Qspider Training Institute',
+const journeyItems = [
+  {
+    id: 1,
+    type: 'education',
+    icon: '🎓',
+    title: 'IIT Madras — BS in Data Science & Applications',
+    subtitle: 'Indian Institute of Technology, Madras',
+    period: '2023 – Present',
+    status: 'Pursuing',
+    statusColor: 'text-purple-400',
+    statusBg: 'rgba(139,92,246,0.1)',
+    statusBorder: 'rgba(139,92,246,0.3)',
+    description: 'Rigorous online degree programme covering Statistics, Machine Learning, Python Programming, Databases, and Data-driven problem solving at one of India\'s premier technical institutions.',
+    tags: ['Statistics', 'ML', 'Python', 'DBMS', 'Data Viz'],
+  },
+  {
+    id: 2,
+    type: 'education',
+    icon: '💻',
+    title: 'Bachelor of Engineering — Computer Engineering',
+    subtitle: 'Maharashtra, India',
+    period: '2022 – Present',
+    status: 'Pursuing',
+    statusColor: 'text-blue-400',
+    statusBg: 'rgba(59,130,246,0.1)',
+    statusBorder: 'rgba(59,130,246,0.3)',
+    description: 'Comprehensive undergraduate program covering Data Structures, Algorithms, Operating Systems, Computer Networks, DBMS, OOP, and Software Engineering fundamentals.',
+    tags: ['DSA', 'OOP', 'OS', 'Networks', 'C', 'Java'],
+  },
+  {
+    id: 3,
+    type: 'milestone',
+    icon: '📚',
+    title: 'Higher Secondary Certificate (HSC)',
+    subtitle: 'Maharashtra State Board',
+    period: '2020 – 2022',
+    status: '80%',
+    statusColor: 'text-emerald-400',
+    statusBg: 'rgba(16,185,129,0.1)',
+    statusBorder: 'rgba(16,185,129,0.3)',
+    description: 'Completed 12th grade with Physics, Chemistry, Mathematics, and Computer Science. Built a strong foundation in analytical thinking and problem-solving.',
+    tags: ['Physics', 'Chemistry', 'Maths', 'Computer Science'],
+  },
+  {
+    id: 4,
+    type: 'milestone',
+    icon: '🏫',
+    title: 'Secondary School Certificate (SSC)',
+    subtitle: 'CBSE Board',
+    period: '2019 – 2020',
+    status: '87%',
+    statusColor: 'text-amber-400',
+    statusBg: 'rgba(245,158,11,0.1)',
+    statusBorder: 'rgba(245,158,11,0.3)',
+    description: 'Completed 10th grade with CBSE Board, achieving 87% — demonstrating strong academic performance and laying the groundwork for a career in engineering and technology.',
+    tags: ['Science', 'Mathematics', 'English', 'Social Studies'],
+  },
 ];
 
 export const EducationSection = () => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-    return (
-        <section id="education" className="py-20 md:py-32 relative" ref={ref}>
-            <div className="container mx-auto px-6 md:px-12">
-                {/* Header */}
+  return (
+    <section id="education" className="py-20 md:py-32 relative" ref={ref}>
+      <div className="container mx-auto px-6 md:px-12">
+
+        {/* Header */}
+        <motion.div
+          className="mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="section-badge mb-4 inline-flex">
+            <GraduationCap size={12} />
+            <span>My Journey</span>
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mt-4 mb-4">
+            Education &{' '}
+            <span className="gradient-text">Timeline</span>
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+            My academic journey and the milestones that shaped my passion for technology and data science.
+          </p>
+        </motion.div>
+
+        {/* Timeline */}
+        <div className="relative max-w-4xl">
+          {/* Vertical neon line */}
+          <motion.div
+            className="absolute left-6 md:left-8 top-0 w-px"
+            style={{
+              background: 'linear-gradient(to bottom, hsl(217,91%,60%), hsl(265,89%,65%), transparent)',
+              boxShadow: '0 0 8px rgba(99,179,237,0.4)',
+            }}
+            initial={{ height: 0 }}
+            animate={isInView ? { height: '100%' } : { height: 0 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
+          />
+
+          <div className="space-y-10">
+            {journeyItems.map((item, index) => (
+              <motion.div
+                key={item.id}
+                className="relative pl-16 md:pl-24"
+                initial={{ opacity: 0, x: -30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.3 + index * 0.2, duration: 0.6 }}
+              >
+                {/* Timeline dot */}
                 <motion.div
-                    className="mb-16 md:mb-20"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
+                  className="absolute left-3.5 md:left-5 top-5 w-6 h-6 rounded-full flex items-center justify-center text-base"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(217,91%,60%), hsl(265,89%,65%))',
+                    boxShadow: '0 0 16px rgba(99,179,237,0.5)',
+                  }}
+                  initial={{ scale: 0 }}
+                  animate={isInView ? { scale: 1 } : {}}
+                  transition={{ delay: 0.4 + index * 0.2, type: 'spring' }}
                 >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium mb-4">
-                        Education
-                    </h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-                        My academic journey and qualifications in computer science.
-                    </p>
+                  {item.icon}
                 </motion.div>
 
-                {/* Education Timeline */}
-                <div className="space-y-8 mb-20">
-                    {education.map((edu, index) => (
-                        <motion.div
-                            key={edu.degree}
-                            className="relative pl-8 md:pl-12 border-l-2 border-border"
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={isInView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ delay: 0.2 + index * 0.2, duration: 0.6 }}
-                        >
-                            {/* Timeline dot */}
-                            <motion.div
-                                className="absolute left-0 top-0 -translate-x-[9px] w-4 h-4 rounded-full bg-foreground"
-                                initial={{ scale: 0 }}
-                                animate={isInView ? { scale: 1 } : {}}
-                                transition={{ delay: 0.3 + index * 0.2, type: "spring" }}
-                            />
+                {/* Card */}
+                <motion.div
+                  className="glass-card rounded-2xl p-6 md:p-8"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {/* Title row */}
+                  <div className="flex flex-wrap items-start justify-between gap-4 mb-3">
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-display font-bold mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground font-mono">{item.subtitle}</p>
+                    </div>
+                    <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold font-mono ${item.statusColor}`}
+                        style={{ background: item.statusBg, border: `1px solid ${item.statusBorder}` }}
+                      >
+                        {item.status}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-mono">{item.period}</span>
+                    </div>
+                  </div>
 
-                            <motion.div
-                                className="bg-muted rounded-lg p-6 md:p-8 hover:bg-foreground/5 transition-colors"
-                                whileHover={{ x: 5 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                                    <div>
-                                        <h3 className="text-xl md:text-2xl font-display font-medium mb-2">
-                                            {edu.degree}
-                                        </h3>
-                                        <p className="text-base md:text-lg text-muted-foreground">
-                                            {edu.institution}
-                                        </p>
-                                    </div>
-                                    <span className="px-4 py-2 bg-background rounded-lg text-sm font-medium">
-                                        {edu.score}
-                                    </span>
-                                </div>
+                  {/* Description */}
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4">
+                    {item.description}
+                  </p>
 
-                                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                                    <div className="flex items-center gap-2">
-                                        <Calendar className="w-4 h-4" />
-                                        {edu.period}
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <MapPin className="w-4 h-4" />
-                                        {edu.location}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.map((tag) => (
+                      <span key={tag} className="skill-chip">{tag}</span>
                     ))}
-                </div>
-
-                {/* Achievements */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                    <div className="flex items-center gap-3 mb-6">
-                        <motion.div
-                            className="p-2 rounded-lg bg-muted"
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                        >
-                            <Award className="w-5 h-5 text-foreground" />
-                        </motion.div>
-                        <h3 className="text-2xl md:text-3xl font-display font-medium">
-                            Achievements
-                        </h3>
-                    </div>
-
-                    <div className="space-y-4">
-                        {achievements.map((achievement, index) => (
-                            <motion.div
-                                key={index}
-                                className="flex gap-3 items-start"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                                transition={{ delay: 0.7 + index * 0.1 }}
-                                whileHover={{ x: 5 }}
-                            >
-                                <div className="w-2 h-2 rounded-full bg-foreground mt-2 flex-shrink-0" />
-                                <p className="text-base text-muted-foreground leading-relaxed">
-                                    {achievement}
-                                </p>
-                            </motion.div>
-                        ))}
-                    </div>
+                  </div>
                 </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Achievement callout */}
+        <motion.div
+          className="mt-16 flex items-start gap-4 p-6 rounded-2xl glass-card max-w-4xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 1.1 }}
+        >
+          <div
+            className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.2), rgba(249,115,22,0.2))', border: '1px solid rgba(245,158,11,0.3)' }}
+          >
+            <Award size={18} className="text-amber-400" />
+          </div>
+          <div>
+            <div className="font-display font-semibold mb-1">Dual-Track Learner</div>
+            <div className="text-sm text-muted-foreground">
+              Simultaneously pursuing a traditional Computer Engineering degree alongside the prestigious IIT Madras Online BS in Data Science programme — demonstrating exceptional dedication to becoming a well-rounded Data Scientist and Software Engineer.
             </div>
-        </section>
-    );
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 };
